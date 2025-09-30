@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Calculator_App"
         mc:Ignorable="d"
-        Title="Calculator" Height="600" Width="400" WindowStartupLocation="CenterScreen" Background="#03506E" ResizeMode="CanMinimize">
+        Title="Calculator" Height="600" Width="400" WindowStartupLocation="CenterScreen" Background="Black" ResizeMode="CanMinimize">
     <Window.Resources>
         <Style x:Key="NumberButtonStyle" TargetType="Button">
             <Setter Property="FontSize" Value="32"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Foreground" Value="#03506E"/>
-            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#1C1C1C"/>
             <Setter Property="Margin" Value="5"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -31,14 +31,14 @@
 
         <Style x:Key="OperationButtonStyle" TargetType="Button" BasedOn="{StaticResource NumberButtonStyle}">
             <Setter Property="FontSize" Value="36"/>
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="Background" Value="#49C8FC"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#FF9500"/>
         </Style>
 
         <Style x:Key="FunctionButtonStyle" TargetType="Button" BasedOn="{StaticResource NumberButtonStyle}">
             <Setter Property="FontSize" Value="24"/>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Background" Value="#2F3C48"/>
+            <Setter Property="Background" Value="#505050"/>
         </Style>
     </Window.Resources>
     
