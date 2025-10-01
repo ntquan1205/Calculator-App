@@ -62,7 +62,7 @@ namespace Calculator_App
                 }
                 else
                 {
-                    firstNumber = double.Parse(currentInput);
+                    firstNumber = double.Parse(currentInput, System.Globalization.CultureInfo.InvariantCulture);
                 }
             }
 
@@ -82,7 +82,7 @@ namespace Calculator_App
 
         private void CalculateResult()
         {
-            double secondNumber = double.Parse(currentInput);
+            double secondNumber = double.Parse(currentInput, System.Globalization.CultureInfo.InvariantCulture);
             double result = 0;
 
             switch (currentOperation)
@@ -104,25 +104,44 @@ namespace Calculator_App
                     break;
             }
 
-            if (Math.Abs(result) > 999999999 || Math.Abs(result) < 0.000001 && result != 0)
+            currentInput = FormatNumber(result);
+            ResultTextBlock.Text = currentInput;
+            firstNumber = result;
+        }
+
+        private string FormatNumber(double number)
+        {
+            if (Math.Abs(number) > 9999999999 || (Math.Abs(number) < 0.00000001 && number != 0))
             {
-                currentInput = result.ToString("E6");
+                return number.ToString("G6", System.Globalization.CultureInfo.InvariantCulture);
             }
-            else
+            string formatted = number.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
+            if (formatted.Length > 10)
             {
-                string resultString = result.ToString();
-                if (resultString.Contains('.') && resultString.Length > 10)
+                if (formatted.Contains('.'))
                 {
-                    currentInput = Math.Round(result, 8).ToString();
+                    formatted = number.ToString("F8", System.Globalization.CultureInfo.InvariantCulture);
+                    formatted = formatted.TrimEnd('0').TrimEnd('.');
+
+                    if (formatted.Length > 10)
+                    {
+                        formatted = number.ToString("F6", System.Globalization.CultureInfo.InvariantCulture);
+                        formatted = formatted.TrimEnd('0').TrimEnd('.');
+                    }
+
+                    if (formatted.Length > 10)
+                    {
+                        formatted = number.ToString("G6", System.Globalization.CultureInfo.InvariantCulture);
+                    }
                 }
                 else
                 {
-                    currentInput = resultString;
+                    formatted = number.ToString("G6", System.Globalization.CultureInfo.InvariantCulture);
                 }
             }
 
-            ResultTextBlock.Text = currentInput;
-            firstNumber = result;
+            return formatted;
         }
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)
@@ -171,7 +190,7 @@ namespace Calculator_App
         {
             if (!isOperationJustPressed && !isNewCalculation)
             {
-                double number = double.Parse(currentInput);
+                double number = double.Parse(currentInput, System.Globalization.CultureInfo.InvariantCulture);
                 number /= 100;
                 currentInput = number.ToString();
                 ResultTextBlock.Text = currentInput;
